@@ -4,31 +4,37 @@ Users:
     - first_name
     - last_name
     - password
-    - personal_id
-    - guardian_personal_id
+    - card_id
+    - is_underage
     - address
-    - city
-    - locality
+    - municipality_id
     - phone
     - cell_phone
 
 getAllUsersAndSymptoms()
-    
-symptoms:
+
+diseases_announcement:
     - id
     - user_id
-    - name
+    - attended_in_hospital
+    - diseases_id
     - fever
     - skin_rashes
     - cough
     - muscle_ache
     - headache
     - vomiting
-    - additional
+    - date
+    - additional_symptoms
+
+diseases:
+  - id
+  - name
+
 
 Notification: Laravel
     - id
-    - title 
+    - title
     - description
 
 
