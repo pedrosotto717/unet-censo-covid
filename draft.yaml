@@ -1,0 +1,37 @@
+Users:
+    - id
+    - email
+    - first_name
+    - last_name
+    - password
+    - personal_id
+    - guardian_personal_id
+    - address
+    - city
+    - locality
+    - phone
+    - cell_phone
+
+getAllUsersAndSymptoms()
+    
+symptoms:
+    - id
+    - name
+    - fever
+    - skin_rashes
+    - cough
+    - muscle_ache
+    - headache
+    - vomiting
+    - additional
+
+Notification: Laravel
+    - id
+    - title 
+    - description
+
+
+
+
+
+
