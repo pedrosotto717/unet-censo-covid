@@ -16,6 +16,7 @@ getAllUsersAndSymptoms()
     
 symptoms:
     - id
+    - user_id
     - name
     - fever
     - skin_rashes
