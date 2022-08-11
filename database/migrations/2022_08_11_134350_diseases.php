@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DiseasesAnnouncement extends Migration
+class Diseases extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class DiseasesAnnouncement extends Migration
      */
     public function up()
     {
-        Schema::table('diseases', function (Blueprint $table) {
+        Schema::create('diseases', function (Blueprint $table) {
             $table->id();
             $table->boolean('attended_in_hospital')->default(true);
             $table->string('additional_symptoms')->nullable();
