@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\traits\ResourceTrait;
+use App\Http\Traits\ResourceTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
