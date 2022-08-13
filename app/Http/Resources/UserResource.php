@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Traits\ResourceTrait;
+use App\Http\Utilities\ResourceTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -23,6 +23,7 @@ class UserResource extends JsonResource
             'type' => $this->type,
             'id' => $this->id,
             'attributes' => [
+                'isAdmin' => $this->isAdmin(),
                 'email' => $this->email,
                 'firstName' => $this->first_name,
                 'lastName' => $this->last_name,
