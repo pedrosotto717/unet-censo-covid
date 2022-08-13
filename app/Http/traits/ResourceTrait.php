@@ -22,7 +22,7 @@ trait ResourceTrait
             return removeSlashes(self::make($item)->format(request()));
         });
 
-        if (count($paginate) > 0)
+        if ($paginate)
             return [
                 'data' => $data,
                 'paginate' => $paginate,
