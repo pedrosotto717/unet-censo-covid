@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DiseaseController;
+use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Middleware\AdminValidation;
 
@@ -54,3 +55,6 @@ Route::group([
 
     Route::get('/stats', [DiseaseController::class, 'stats']);
 });
+
+
+Route::get('/municipalities', MunicipalityController::class);
