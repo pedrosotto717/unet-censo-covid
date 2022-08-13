@@ -24,23 +24,20 @@ Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
 
-    Route::get('/', [DiseaseController::class, 'index'])
-        ->middleware('auth:sanctum');
+    Route::get('/', [DiseaseController::class, 'index']);
 
-    Route::post('/', [DiseaseController::class, 'store'])
-        ->middleware('auth:sanctum');
+    Route::post('/', [DiseaseController::class, 'store']);
 
-    Route::get('types', [DiseaseController::class, 'getTypes'])
-        ->middleware('auth:sanctum');
+    Route::get('types', [DiseaseController::class, 'getTypes']);
 });
+
+Route::get('notifications', [NotificationController::class, 'index']);
+
 
 Route::group([
     'prefix' => 'notifications',
     'middleware' => ['auth:sanctum', AdminValidation::class]
 ], function () {
-
-    Route::get('/', [NotificationController::class, 'index']);
-
     Route::post('/', [NotificationController::class, 'store']);
 
     Route::get('types', [NotificationController::class, 'getTypes']);
