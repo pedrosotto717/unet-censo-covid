@@ -18,11 +18,21 @@ class NotificationController extends Controller
     public function index()
     {
         try {
-            $notification = Notification::all() ?? [];
+            $notification = Notification::paginate(15) ?? [];
             if ($notification->isEmpty())
                 return json_success(['data' => []]);
 
-            return json_success(NotificationResource::collection($notification));
+            $paginate = [
+                'total' => $notification->total(),
+                'perPage' => $notification->perPage(),
+                'currentPage' => $notification->currentPage(),
+                'previusPageUrl' => $notification->previousPageUrl(),
+                'nextPageUrl' => $notification->nextPageUrl(),
+                'pageName' => $notification->getPageName(),
+            ];
+
+
+            return json_success(NotificationResource::collection($notification, $paginate));
         } catch (\Throwable $th) {
             Log::error($th);
             return json_errors($th->getMessage(), 500);

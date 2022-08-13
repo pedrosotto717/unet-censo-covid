@@ -16,11 +16,18 @@ trait ResourceTrait
         return [];
     }
 
-    public static function collection($collection)
+    public static function collection($collection, $paginate = null)
     {
         $data = $collection->map(function ($item) {
             return removeSlashes(self::make($item)->format(request()));
         });
+
+        if (count($paginate) > 0)
+            return [
+                'data' => $data,
+                'paginate' => $paginate,
+            ];
+
 
         return [
             'data' => $data

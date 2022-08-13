@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserResourceCollection;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -20,11 +21,21 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $user = User::all() ?? [];
+            $user = User::paginate(15) ?? [];
+
             if ($user->isEmpty())
                 return json_success(['data' => []]);
 
-            return json_success(UserResource::collection($user));
+            $paginate = [
+                'total' => $user->total(),
+                'perPage' => $user->perPage(),
+                'currentPage' => $user->currentPage(),
+                'previusPageUrl' => $user->previousPageUrl(),
+                'nextPageUrl' => $user->nextPageUrl(),
+                'pageName' => $user->getPageName(),
+            ];
+
+            return json_success(UserResource::collection($user, $paginate));
         } catch (\Throwable $th) {
             Log::error($th);
             return json_errors($th->getMessage(), 500);
