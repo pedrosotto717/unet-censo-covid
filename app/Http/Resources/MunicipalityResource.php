@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Traits\ResourceTrait;
+use App\Http\Extends\ResourceTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MunicipalityResource extends JsonResource

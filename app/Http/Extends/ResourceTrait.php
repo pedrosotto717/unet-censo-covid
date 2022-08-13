@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Http\Extends;
 
 trait ResourceTrait
 {
