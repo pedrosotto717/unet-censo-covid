@@ -18,24 +18,33 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
+
     {
         try {
-            $user = User::paginate(15) ?? [];
+            $search = $request->get('search');
 
-            if ($user->isEmpty())
+            if ($search)
+                $users = User::where('email', 'like', '%' . $search . '%')
+                    ->orWhere('first_name', 'like', '%' . $search . '%')
+                    ->orWhere('last_name', 'like', '%' . $search . '%')
+                    ->paginate(15);
+            else
+                $users = User::paginate(15) ?? [];
+
+            if ($users->isEmpty())
                 return json_success(['data' => []]);
 
             $paginate = [
-                'total' => $user->total(),
-                'perPage' => $user->perPage(),
-                'currentPage' => $user->currentPage(),
-                'previusPageUrl' => $user->previousPageUrl(),
-                'nextPageUrl' => $user->nextPageUrl(),
-                'pageName' => $user->getPageName(),
+                'total' => $users->total(),
+                'perPage' => $users->perPage(),
+                'currentPage' => $users->currentPage(),
+                'previusPageUrl' => $users->previousPageUrl(),
+                'nextPageUrl' => $users->nextPageUrl(),
+                'pageName' => $users->getPageName(),
             ];
 
-            return json_success(UserResource::collection($user, $paginate));
+            return json_success(UserResource::collection($users, $paginate));
         } catch (\Throwable $th) {
             Log::error($th);
             return json_errors($th->getMessage(), 500);

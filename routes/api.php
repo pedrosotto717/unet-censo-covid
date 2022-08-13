@@ -19,6 +19,11 @@ Route::get('users', [UserController::class, 'index'])
 
 Route::post('auth', [AuthController::class, 'auth']);
 
+
+Route::get('users', [UserController::class, 'index'])
+    ->middleware(['auth:sanctum', AdminValidation::class]);
+
+
 Route::group([
     'prefix' => 'diseases',
     'middleware' => ['auth:sanctum']
@@ -31,6 +36,8 @@ Route::group([
     Route::get('types', [DiseaseController::class, 'getTypes']);
 });
 
+
+
 Route::get('notifications', [NotificationController::class, 'index']);
 
 
@@ -42,7 +49,6 @@ Route::group([
 
     Route::get('types', [NotificationController::class, 'getTypes']);
 });
-
 
 
 Route::group([
