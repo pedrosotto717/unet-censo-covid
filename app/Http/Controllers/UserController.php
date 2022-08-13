@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\UserResource;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,7 +19,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $user = User::all() ?? [];
+            if ($user->isEmpty())
+                return json_success(['data' => []]);
+
+            return json_success(UserResource::collection($user));
+        } catch (\Throwable $th) {
+            Log::error($th);
+            return json_errors($th->getMessage(), 500);
+        }
     }
 
     /**
@@ -62,8 +72,20 @@ class UserController extends Controller
 
             $user->save();
 
+            $token = $user->createToken(Carbon::now())->plainTextToken;
+            $userData = UserResource::make($user)->format($request);
+
+            $data = [
+                'user' => $userData,
+                'meta' => [
+                    'type' => 'Bearer',
+                    'access_token' => $token,
+                    'message' => 'success'
+                ]
+            ];
+
             if ($user->id)
-                return json_success(UserResource::make($user), 201);
+                return json_success($data, 201);
             else
                 return json_errors(['message' => 'Error creating user'], 500);
         } catch (\Throwable $th) {

@@ -13,6 +13,12 @@ class UserResource extends JsonResource
 
     public function format($request)
     {
+        if (isset($this->diseases->id)) {
+            $diseases = DiseaseResorce::make($this->diseases)->format($request);
+        } else {
+            $diseases = [];
+        }
+
         return [
             'type' => $this->type,
             'id' => $this->id,
@@ -26,6 +32,7 @@ class UserResource extends JsonResource
                 'cellPhone' => $this->cell_phone,
                 'address' => $this->address,
                 'municipality' => $this->municipality->name,
+                'diseases' => $diseases,
             ]
         ];
     }
