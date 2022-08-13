@@ -40,6 +40,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_underage' => 'boolean',
     ];
 
     public function municipality()
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function diseases()
     {
         return $this->hasOne(Disease::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->admin;
     }
 }
