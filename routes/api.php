@@ -12,6 +12,8 @@ use App\Http\Middleware\AdminValidation;
 Route::resource('users', UserController::class)
     ->except(['store', 'index'])->middleware('auth:sanctum');
 
+Route::post('users', [UserController::class, 'store']);
+
 Route::get('users', [UserController::class, 'index'])
     ->middleware(['auth:sanctum', AdminValidation::class]);
 
